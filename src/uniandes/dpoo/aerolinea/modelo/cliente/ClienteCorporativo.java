@@ -6,13 +6,38 @@ import org.json.JSONObject;
  * Esta clase se usa para representar a los clientes de la aerolínea que son empresas
  */
 public class ClienteCorporativo extends Cliente {
+	public static String CORPORATIVO = "Corporativo";
+	public int GRANDE = 1;
+	public int MEDIANA = 2;
+	public int PEQUENA = 3;
+	private String nombreEmpresa;
+	private int tamanoEmpresa;
 	
     // TODO completar
-	public ClienteCorporativo() {
-		super();
+	public ClienteCorporativo(String nombreEmpresa, int tam) {
+		this.nombreEmpresa = nombreEmpresa;
+		this.tamanoEmpresa = tam;
 	}
 
-    /**
+    public String getNombreEmpresa() {
+		return nombreEmpresa;
+	}
+
+	public int getTamanoEmpresa() {
+		return tamanoEmpresa;
+	}
+	
+	@Override
+	public String getTipoCliente() {
+		return CORPORATIVO;
+	}
+
+	@Override
+	public String getIdentificador() {
+		return null;
+	}
+
+	/**
      * Crea un nuevo objeto de tipo a partir de un objeto JSON.
      * 
      * El objeto JSON debe tener dos atributos: nombreEmpresa (una cadena) y tamanoEmpresa (un número).

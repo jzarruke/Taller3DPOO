@@ -2,26 +2,40 @@ package uniandes.dpoo.aerolinea.modelo.cliente;
 
 import uniandes.dpoo.aerolinea.modelo.Vuelo;
 import uniandes.dpoo.aerolinea.tiquetes.Tiquete;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Cliente {
+	private List<Tiquete> tiquetesSinUsar;
+	private List<Tiquete> tiquetesUsados;
 	
-	public Cliente(String tipoCliente, String identificador) {
-		
+	public Cliente() {
+		tiquetesSinUsar = new ArrayList<Tiquete>();
+		tiquetesUsados = new ArrayList<Tiquete>();
 	}
 
-	public String getTipoCliente() {
-		return null;
-	}
+	public abstract String getTipoCliente();
 
-	public String getIdentificador() {
-		return null;
+	public abstract String getIdentificador();
+	
+	public void agregarTiquete(Tiquete tiquete) {
+		tiquetesSinUsar.add(tiquete);
 	}
 	
-	public void agregarTiquete(Tiquete tiquete) {}
-	
-	public int calcularValorTotal() {
-		return 0;
+	public int calcularValorTotalTiquetes() {
+		int valor = 0;
+		for (Tiquete ticket: tiquetesSinUsar) {
+			valor += ticket.getTarifa();
+		}
+		return valor;
 	}
 	
-	public void usarTiquetes(Vuelo vuelo) {}
+	public void usarTiquetes(Vuelo vuelo) {
+		for (Tiquete ticket: tiquetesSinUsar) {
+			if (vuelo.equals(ticket.getVuelo())) {
+				tiquetesUsados.add(ticket);
+				tiquetesSinUsar.remove(ticket);
+			}
+		}
+	}
 }
